@@ -35,7 +35,7 @@ const getMenuItems = asyncHandler( async (req,res)=>{
 
 const getCartPrice = asyncHandler( async (req,res)=>{
   const {restaurant_id, cartItems} = req.body;
-  const restaurants = await Restaurant.find({_id : restaurant_id});
+  const restaurant = await Restaurant.find({_id : restaurant_id});
   const menuItems = restaurant.items;
   let totalPrice = 0;
 
