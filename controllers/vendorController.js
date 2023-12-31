@@ -9,7 +9,7 @@ const MenuItem = require("../models/menuItemModel");
 const addItem = asyncHandler( async (req,res)=>{
   console.log(req.body);
   const {name , restaurant_id , type , price , quantity , image_url , description , rating} = req.body;
-  if(!restaurant_id || !name || !type || !price || !quantity){res.status(400);
+  if(!restaurant_id || !name || !type || !price || !quantity || !image_url){res.status(400);
   throw new Error('All fields are required')}
   const newItem = await MenuItem.create({name , restaurant_id , type , price , quantity , image_url , description , rating});
   res.status(201).json(newItem);
