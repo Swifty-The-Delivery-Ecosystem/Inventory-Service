@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const MenuItem = require("../models/menuItemModel");
 
 
 const RestaurantSchema = mongoose.Schema({
@@ -10,6 +11,9 @@ const RestaurantSchema = mongoose.Schema({
     type: Number,
     required : [true, "Please enter a primary location"],
   },
+  items : [{
+    type: MenuItem.schema, 
+  }],
   image_url : {
     type: String,
     required : [true, "Provide url for restaurant image"]
