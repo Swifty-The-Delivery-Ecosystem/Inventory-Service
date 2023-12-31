@@ -14,5 +14,4 @@ app.use(express.json());
 
 
 app.use("/api/customer",require('./routes/customerRoutes'));
-app.use("/api/vendor",require('./routes/vendorRoutes'));
-app.use(errorHandler);
+// app.use("/api/vendor",require('./routes/vendorRoutes'));

@@ -7,3 +7,5 @@ router.get('/restaurants', getRestaurants);
 router.get('/cartprice', getCartPrice);
 
 router.get('/menuitems', getMenuItems);
+
+module.exports = router;
