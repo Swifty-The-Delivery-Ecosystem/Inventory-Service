@@ -18,10 +18,10 @@ const addItem = asyncHandler(async (req, res) => {
     description,
     rating,
   } = req.body;
-  //   if (!restaurant_id || !name || !type || !price || !quantity || !image_url) {
-  //     res.status(400);
-  //     throw new Error("All fields are required");
-  //   }
+    if (!restaurant_id || !name || !type || !price || !quantity || !image_url) {
+      res.status(400);
+      throw new Error("All fields are required");
+    }
 
   // Find the restaurant by its ID
   const restaurant = await Restaurant.findById(restaurant_id);
