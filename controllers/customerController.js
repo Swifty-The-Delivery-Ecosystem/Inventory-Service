@@ -10,7 +10,7 @@ const Restaurant = require("../models/restaurantModel");
 
 
 const getRestaurants = asyncHandler( async (req,res)=>{
-  const primaryloc = req.body.location;
+  const primaryloc = req.params.location;
   const restaurants = await Restaurant.find({location: primaryloc});
   res.status(200).json(restaurants);
 });
@@ -21,7 +21,7 @@ const getRestaurants = asyncHandler( async (req,res)=>{
 
 
 const getMenuItems = asyncHandler(async (req, res) => {
-  const restaurant_id = req.body.restaurantID;
+  const restaurant_id = req.params.restaurant_id;
   const restaurant = await Restaurant.findOne({ _id: restaurant_id });
 
   if (!restaurant) {
@@ -37,9 +37,10 @@ const getMenuItems = asyncHandler(async (req, res) => {
 //@access public
 
 const getCartPrice = asyncHandler(async (req, res) => {
-  const { restaurant_id, cartItems } = req.body;
+  const  restaurant_id  = req.params.restaurantID;
+  const cartItems = req.params.cartItems
 
-  // Use findOne instead of find to get a single document
+  
   const restaurant = await Restaurant.findOne({ _id: restaurant_id });
 
   if (!restaurant) {
@@ -50,7 +51,6 @@ const getCartPrice = asyncHandler(async (req, res) => {
   let totalPrice = 0;
 
   cartItems.forEach((cartItem) => {
-    // Use find to check if the item exists in the menuItems array
     const menuItem = menuItems.find(item => item._id.equals(cartItem));
 
     if (menuItem) {
