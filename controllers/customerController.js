@@ -31,27 +31,77 @@ const getMenuItems = asyncHandler(async (req, res) => {
 //@access public
 
 const getCartPrice = asyncHandler(async (req, res) => {
-  const restaurant_id = req.query.restaurantID;
-  const cartItems = req.query.cartItems;
+  try {
+    const { restaurantID, cartItems } = req.query;
 
-  const restaurant = await Restaurant.findOne({ _id: restaurant_id });
-
-  if (!restaurant) {
-    return res.status(404).json({ message: "Restaurant not found" });
-  }
-
-  const menuItems = restaurant.items;
-  let totalPrice = 0;
-
-  cartItems.forEach((cartItem) => {
-    const menuItem = menuItems.find((item) => item._id.equals(cartItem));
-
-    if (menuItem) {
-      totalPrice += menuItem.price;
+    // Validate input
+    if (!restaurantID || !cartItems) {
+      return res.status(400).json({ error: "Invalid input parameters" });
     }
-  });
 
-  res.status(200).json({ totalPrice });
+    // Parse cartItems string into a JSON array
+    const parsedCartItems = JSON.parse(cartItems);
+
+    // Find the restaurant by ID
+    const restaurant = await Restaurant.findOne({ _id: restaurantID });
+
+    if (!restaurant) {
+      return res.status(404).json({ error: "Restaurant not found" });
+    }
+
+    // Access menu items
+    const menuItems = restaurant.items;
+
+    // Calculate total cart price
+    let totalPrice = 0;
+
+    for (const cartItem of parsedCartItems) {
+      const menuItem = menuItems.find(
+        (item) => String(item.item_id) === cartItem.id
+      );
+
+      if (menuItem) {
+        totalPrice += menuItem.price * cartItem.quantity;
+      } else {
+      }
+    }
+
+    // Return the total cart price
+    return res.json({ totalPrice });
+  } catch (error) {
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
 });
 
-module.exports = { getRestaurants, getCartPrice, getMenuItems };
+const getItem = asyncHandler(async (req, res) => {
+  try {
+    const { cartItems } = req.query;
+    let finalitems = [];
+
+    const parsedCartItems = JSON.parse(cartItems);
+
+    const menuItems = await MenuItem.find();
+
+    for (let i = 0; i < parsedCartItems.length; i++) {
+      const cartItem = parsedCartItems[i];
+      let menuItem = null;
+
+      for (let j = 0; j < menuItems.length; j++) {
+        const item = menuItems[j];
+
+        if (String(item.item_id) === cartItem.id) {
+          menuItem = item;
+          finalitems.push(menuItem);
+          break;
+        }
+      }
+    }
+
+    return res.json({ finalitems });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+module.exports = { getRestaurants, getCartPrice, getMenuItems, getItem };
