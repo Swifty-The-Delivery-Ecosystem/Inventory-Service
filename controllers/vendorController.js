@@ -1,6 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const MenuItem = require("../models/menuItemModel");
 const Restaurant = require("../models/restaurantModel");
+const uuid = require("uuid");
 
 //@desc additems
 //@route POST /api/additem
@@ -18,10 +19,11 @@ const addItem = asyncHandler(async (req, res) => {
     description,
     rating,
   } = req.body;
-    if (!restaurant_id || !name || !type || !price || !quantity || !image_url) {
-      res.status(400);
-      throw new Error("All fields are required");
-    }
+
+  if (!restaurant_id || !name || !price || !quantity || !image_url) {
+    res.status(400);
+    throw new Error("All fields are required nigga");
+  }
 
   // Find the restaurant by its ID
   const restaurant = await Restaurant.findById(restaurant_id);
@@ -32,7 +34,9 @@ const addItem = asyncHandler(async (req, res) => {
   }
 
   // Create a new menu item with _id automatically generated
+  const item_id = uuid.v4();
   const newItem = await MenuItem.create({
+    item_id,
     name,
     restaurant_id,
     type,

@@ -12,6 +12,17 @@ const getRestaurants = asyncHandler(async (req, res) => {
   res.status(200).json(restaurants);
 });
 
+const getRestaurantDetails = asyncHandler(async (req, res) => {
+  const restaurant_id = req.query.restaurant_id;
+  const restaurant = await Restaurant.findOne({ _id: restaurant_id });
+
+  if (!restaurant) {
+    return res.status(404).json({ message: "Restaurant not found" });
+  }
+
+  res.status(200).json(restaurant);
+});
+
 //@desc Get All Menu Items of a Restaurant
 //@route GET /api/customer/menuitems
 //@access public
@@ -104,4 +115,4 @@ const getItem = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { getRestaurants, getCartPrice, getMenuItems, getItem };
+module.exports = { getRestaurants, getCartPrice, getMenuItems, getItem , getRestaurantDetails};

@@ -1,10 +1,8 @@
-const mongoose = require('mongoose');
-
+const mongoose = require("mongoose");
 
 // TODO : Apply check on rating cant be changed by restaurant
 
 const MenuItemSchema = mongoose.Schema({
-  _id: mongoose.Schema.Types.ObjectId,
   name: {
     type: String,
     required: [true, "Please enter an MenuItem name"],
@@ -41,4 +39,4 @@ const MenuItemSchema = mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model('MenuItem',MenuItemSchema);
+module.exports = mongoose.model("MenuItem", MenuItemSchema);
