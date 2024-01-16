@@ -1,6 +1,6 @@
 const asyncHandler = require("express-async-handler");
-const MenuItem = require("../models/menuItemModel");
-const Restaurant = require("../models/restaurantModel");
+const MenuItem = require("../models/menuItem.model");
+const Restaurant = require("../models/vendor.model");
 
 //@desc Get All Restaurants
 //@route GET /api/customer/restaurants

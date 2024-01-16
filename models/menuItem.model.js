@@ -30,7 +30,7 @@ const MenuItemSchema = mongoose.Schema({
   vendor_id:{
     type:mongoose.Schema.Types.ObjectId,
     required:true,
-    ref: "Restaurant"
+    ref: "Vendor"
   },
   rating : {
     type: Number,
