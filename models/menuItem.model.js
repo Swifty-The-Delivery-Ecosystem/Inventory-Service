@@ -49,7 +49,7 @@ const MenuItemSchema = mongoose.Schema({
     default: true
   },
   nutritional_values:{
-    type: mongoose.Mongoose.Schema.Types.json
+    type: String
   },
   is_healthy: {
     type: Boolean

@@ -3,7 +3,7 @@ const MenuItem = require("./menuItem.model");
 
 const MenuSchema = mongoose.Schema({
   items : [{
-    type: MenuItem.Schema
+    type: MenuItem.schema, 
   }],
   vendor_id : {
     type : mongoose.Schema.Types.ObjectId,
