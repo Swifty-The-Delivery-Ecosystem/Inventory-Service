@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const {getRestaurants, getCartPrice, getMenuItems}  = require("../controllers/customerController");
+const {getVendors}  = require("../controllers/customerController");
 
-router.get('/restaurants', getRestaurants);
+router.get('/restaurants', getVendors);
 
-router.get('/cartprice', getCartPrice);
+// router.get('/cartprice', getCartPrice);
 
-router.get('/menuitems', getMenuItems);
+// router.get('/menuitems', getMenuItems);
 
 module.exports = router;

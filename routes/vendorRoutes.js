@@ -3,17 +3,19 @@ const {
   addItem,
   updateItem,
   deleteItem,
-  updateQuantity,
+  // updateQuantity,
 } = require("../controllers/vendorController");
+const extractTokenMiddleware = require("../middleware/authMiddleware");
 
 const router = express.Router();
+router.use(extractTokenMiddleware);
 
-router.post("/additem", addItem);
+router.post("/menuitems", addItem);
 
 router.put("/updateitem", updateItem);
 
 router.delete("/deleteitem", deleteItem);
 
-router.put("/updatequantity", updateQuantity);
+// router.put("/updatequantity", updateQuantity);
 
 module.exports = router;
