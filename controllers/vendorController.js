@@ -49,7 +49,6 @@ const addItem = asyncHandler(async (req, res) => {
 
   const item_id = uuidv4();
 
-  // Create a new menu item with _id automatically generated
   const newItem = await MenuItem.create({
     name,
     vendor_id: vendor_id,
@@ -92,7 +91,6 @@ const addItem = asyncHandler(async (req, res) => {
     item_id: item_id,
   });
 
-  // Save the updated menu
   await menu.save();
 
   res.status(201).json(newItem);
@@ -174,7 +172,6 @@ const updateItem = asyncHandler(async (req, res) => {
 
   menu.items = updatedMenuItems;
 
-  // Save the updated menu
   await menu.save();
 
   res.status(200).json(updatedItem);
@@ -209,24 +206,9 @@ const deleteItem = asyncHandler(async (req, res) => {
   res.status(200).json(item);
 });
 
-// const updateQuantity = asyncHandler(async (req, res) => {
-//   const item = await MenuItem.findById(req.params.id);
-//   if (!item) {
-//     res.status(404);
-//     throw new Error("Contact not found");
-//   }
-
-//   const updatedItem = await MenuItem.findByIdAndUpdate(
-//     req.params.id,
-//     req.body,
-//     { new: true }
-//   );
-//   res.status(200).json(updatedItem);
-// });
 
 module.exports = {
   addItem,
   updateItem,
   deleteItem,
-  // updateQuantity,
 };

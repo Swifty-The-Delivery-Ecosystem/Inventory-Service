@@ -12,9 +12,9 @@ router.use(extractTokenMiddleware);
 
 router.post("/menuitems", addItem);
 
-router.put("/updateitem", updateItem);
+router.put("/menuitems", updateItem);
 
-router.delete("/deleteitem", deleteItem);
+router.delete("/menuitems", deleteItem);
 
 // router.put("/updatequantity", updateQuantity);
 

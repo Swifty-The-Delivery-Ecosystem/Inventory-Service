@@ -24,3 +24,5 @@ app.use(express.json());
 
 app.use("/api/v1/customer", require("./routes/customerRoutes"));
 app.use("/api/v1/vendor", require("./routes/vendorRoutes"));
+
+module.exports = app;

@@ -1,7 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const MenuItem = require("../models/menuItem.model");
-const Menu = require("../models/vendor.model");
-const Vendor = require("../models/menu.model");
+const Menu = require("../models/menu.model");
+const Vendor = require("../models/vendor.model");
 
 //@desc Get All Vendors
 //@route GET /api/customer/Vendors
