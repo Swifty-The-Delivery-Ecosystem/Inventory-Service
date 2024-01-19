@@ -19,13 +19,7 @@ const extractTokenMiddleware = asyncHandler(async (req, res, next) => {
     }
 
     const vendor_id = decoded.id;
-
-    // Attach the vendor_id to the request for future use in your route handlers
     req.vendor_id = vendor_id;
-
-    console.log("hello",vendor_id);
-
-    // Continue to the next middleware or route handler
     next();
   });
 });

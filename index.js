@@ -1,16 +1,18 @@
-const express = require('express');
-const dotenv = require('dotenv').config();
+const express = require("express");
+const dotenv = require("dotenv").config();
 // const cors = require('cors');
-const connectDb = require('./config/dbConnection');
-
+const connectDb = require("./config/dbConnection");
 
 connectDb();
 const app = express();
-const port = process.env.PORT;
+const port = 4005;
 
-app.listen(port, () => {
-  console.log("listening on port " + process.env.PORT);
-});
+if (process.env.NODE_ENV != "test") {
+  app.listen(port, () => {
+    console.log("listening on port " + 4005);
+  });
+}
+
 // app.use(function (req, res, next) {
 //   res.setHeader("Access-Control-Allow-Origin", "*");
 //   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
