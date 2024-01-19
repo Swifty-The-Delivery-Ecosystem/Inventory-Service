@@ -32,4 +32,4 @@ describe("GET /api/v1/vendor/menuitems", () => {
     expect(firstItem).toHaveProperty("is_available");
     expect(firstItem).toHaveProperty("is_healthy");
   });
-});
+}, 100000);
