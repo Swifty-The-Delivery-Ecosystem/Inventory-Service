@@ -8,57 +8,59 @@ const Vendor = require("../models/vendor.model");
 //@access public
 
 exports.getVendors = asyncHandler(async (req, res) => {
-  try{
-  const {primary_location, tag, is_veg, sort, page=1,pageSize = 10} = req.query;
-  const filters = {};
-  if(primary_location) {
-    filters.location_served = {$in : [primary_location]}
-  }
-  if(tag){
-    filters.tags = {$in : [tag]}
-  }
-  if(is_veg){
-    filters.is_veg = true;
-  }
+  try {
+    const {
+      primary_location,
+      tag,
+      is_veg,
+      sort,
+      page = 1,
+      pageSize = 10,
+    } = req.query;
+    const filters = {};
+    if (primary_location) {
+      filters.location_served = { $in: [primary_location] };
+    }
+    if (tag) {
+      filters.tags = { $in: [tag] };
+    }
+    if (is_veg) {
+      filters.is_veg = true;
+    }
 
-  const sortOptions = {};
+    const sortOptions = {};
     if (sort) {
-      const sortFields = sort.split(',');
-      sortFields.forEach(field => {
-        const order = field.endsWith('-') ? -1 : 1;
-        const fieldName = field.replace(/[+-]/g, ''); 
+      const sortFields = sort.split(",");
+      sortFields.forEach((field) => {
+        const order = field.endsWith("-") ? -1 : 1;
+        const fieldName = field.replace(/[+-]/g, "");
         sortOptions[fieldName] = order;
       });
     }
 
-  
-  const vendors = await Vendor
-  .find(filters)
-  .sort(sortOptions)
-  .skip( (page-1)*pageSize)
-  .limit(pageSize);
-  return res.status(200).json(vendors);
-}
-catch(err){
-  return res.status(500).json({ error: 'Internal Server Error' });
-}
+    const vendors = await Vendor.find(filters)
+      .sort(sortOptions)
+      .skip((page - 1) * pageSize)
+      .limit(pageSize);
+    return res.status(200).json(vendors);
+  } catch (err) {
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
 });
 
 //@desc Get Vendor By Id
 //@route GET /api/customer/Vendor
 //@access public
 
-exports.getVendorById = asyncHandler( async(req, res, next)=>{
+exports.getVendorById = asyncHandler(async (req, res, next) => {
   const vendor_id = req.params.vendor_id;
-  try{
-    const menu = Menu.find({vendor_id:id});
+  try {
+    const menu = Menu.find({ vendor_id: id });
     return res.status(200).json(menu);
-    }
-    catch(err){
-      return res.status(500).json({error: "Vendor doesnt exist"});
-    }
-
-})
+  } catch (err) {
+    return res.status(500).json({ error: "Vendor doesnt exist" });
+  }
+});
 
 //@desc Get Restaurants By Food Item
 //@route GET /api/customer/Vendor
@@ -85,5 +87,3 @@ exports.getVendorById = asyncHandler( async(req, res, next)=>{
 //   }
 //   res.status(200).json(Vendor.items);
 // });
-
-

@@ -65,6 +65,7 @@ const addItem = asyncHandler(async (req, res) => {
   } = req.body;
 
   const { vendor_id } = req;
+  console.log(vendor_id);
 
   if (!vendor_id || !name || !price || !quantity || !image_url) {
     res.status(400);

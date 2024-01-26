@@ -1,6 +1,5 @@
 const express = require("express");
 const dotenv = require("dotenv").config();
-// const cors = require('cors');
 const connectDb = require("./config/dbConnection");
 
 connectDb();
@@ -13,15 +12,18 @@ if (process.env.NODE_ENV != "test") {
   });
 }
 
-// app.use(function (req, res, next) {
-//   res.setHeader("Access-Control-Allow-Origin", "*");
-//   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-//   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-//   res.setHeader("Access-Control-Allow-Credentials", true);
-//   next();
-// });
+app.use(function (req, res, next) {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  );
+  // res.setHeader("Access-Control-Allow-Credentials", true);
+  next();
+});
 
-// app.use(cors);
 app.use(express.json());
 
 app.use("/api/v1/inventory/customer", require("./routes/customerRoutes"));
