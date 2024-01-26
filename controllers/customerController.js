@@ -7,7 +7,7 @@ const Vendor = require("../models/vendor.model");
 //@route GET /api/customer/Vendors
 //@access public
 
-const getVendors = asyncHandler(async (req, res) => {
+exports.getVendors = asyncHandler(async (req, res) => {
   try{
   const {primary_location, tag, is_veg, sort, page=1,pageSize = 10} = req.query;
   const filters = {};
@@ -48,7 +48,7 @@ catch(err){
 //@route GET /api/customer/Vendor
 //@access public
 
-const getVendorById = asyncHandler( async(req, res, next)=>{
+exports.getVendorById = asyncHandler( async(req, res, next)=>{
   const vendor_id = req.params.vendor_id;
   try{
     const menu = Menu.find({vendor_id:id});
@@ -59,6 +59,10 @@ const getVendorById = asyncHandler( async(req, res, next)=>{
     }
 
 })
+
+//@desc Get Restaurants By Food Item
+//@route GET /api/customer/Vendor
+//@access public
 
 //@desc Get All Menu Items of a Vendor
 //@route GET /api/customer/menuitems
@@ -83,5 +87,3 @@ const getVendorById = asyncHandler( async(req, res, next)=>{
 // });
 
 
-
-module.exports = { getVendors };
