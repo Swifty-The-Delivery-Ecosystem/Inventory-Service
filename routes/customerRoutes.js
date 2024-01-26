@@ -4,6 +4,8 @@ const {getVendors}  = require("../controllers/customerController");
 
 router.get('/vendors', getVendors);
 
+router.get('/vendors/:vendor_id', getVendorById);
+
 // router.get('/cartprice', getCartPrice);
 
 // router.get('/menuitems', getMenuItems);

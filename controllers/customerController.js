@@ -9,17 +9,6 @@ const Vendor = require("../models/vendor.model");
 
 const getVendors = asyncHandler(async (req, res) => {
   try{
-  const id = req.params.id;
-
-  if(id){
-    try{
-    const menu = Menu.find({vendor_id:id});
-    return res.status(200).json(menu);
-    }
-    catch(err){
-      return res.status(500).json({error: "Vendor doesnt exist"});
-    }
-  }
   const {primary_location, tag, is_veg, sort, page=1,pageSize = 10} = req.query;
   const filters = {};
   if(primary_location) {
@@ -54,6 +43,22 @@ catch(err){
   return res.status(500).json({ error: 'Internal Server Error' });
 }
 });
+
+//@desc Get Vendor By Id
+//@route GET /api/customer/Vendor
+//@access public
+
+const getVendorById = asyncHandler( async(req, res, next)=>{
+  const vendor_id = req.params.vendor_id;
+  try{
+    const menu = Menu.find({vendor_id:id});
+    return res.status(200).json(menu);
+    }
+    catch(err){
+      return res.status(500).json({error: "Vendor doesnt exist"});
+    }
+
+})
 
 //@desc Get All Menu Items of a Vendor
 //@route GET /api/customer/menuitems
