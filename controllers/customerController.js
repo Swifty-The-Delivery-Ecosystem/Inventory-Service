@@ -2,6 +2,7 @@ const asyncHandler = require("express-async-handler");
 const MenuItem = require("../models/menuItem.model");
 const Menu = require("../models/menu.model");
 const Vendor = require("../models/vendor.model");
+const { default: mongoose } = require("mongoose");
 
 //@desc Get All Vendors
 //@route GET /api/customer/Vendors
@@ -50,8 +51,10 @@ catch(err){
 
 exports.getVendorById = asyncHandler( async(req, res, next)=>{
   const vendor_id = req.params.vendor_id;
+  const vendor_id_object = new mongoose.Types.ObjectId(vendor_id);
+  
   try{
-    const menu = Menu.find({vendor_id:id});
+    const menu = await Menu.findOne({vendor_id:vendor_id_object});
     return res.status(200).json(menu);
     }
     catch(err){
