@@ -24,7 +24,7 @@ if (process.env.NODE_ENV != "test") {
 // app.use(cors);
 app.use(express.json());
 
-app.use("/api/v1/customer", require("./routes/customerRoutes"));
-app.use("/api/v1/vendor", require("./routes/vendorRoutes"));
+app.use("/api/v1/inventory/customer", require("./routes/customerRoutes"));
+app.use("/api/v1/inventory/vendor", require("./routes/vendorRoutes"));
 
 module.exports = app;
