@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {getVendors}  = require("../controllers/customerController");
+const {getVendors, getVendorById}  = require("../controllers/customerController");
 
 router.get('/vendors', getVendors);
 
