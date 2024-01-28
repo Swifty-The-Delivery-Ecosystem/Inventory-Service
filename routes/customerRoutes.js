@@ -1,21 +1,18 @@
 const express = require("express");
 const router = express.Router();
 const {
-  getRestaurants,
+  getVendors,
+  getVendorById,
   getCartPrice,
-  getMenuItems,
-  getItem,
-  getRestaurantDetails,
+  getVendorDetailsById,
 } = require("../controllers/customerController");
 
-router.get("/restaurants", getRestaurants);
+router.get("/vendors", getVendors);
+
+router.get("/vendors/:vendor_id", getVendorById);
+
+router.get("/vendors/details/:vendor_id", getVendorDetailsById);
 
 router.get("/cartprice", getCartPrice);
-
-router.get("/menuitems", getMenuItems);
-
-router.get("/getitem", getItem);
-
-router.get("/getdetails", getRestaurantDetails);
 
 module.exports = router;
