@@ -2,6 +2,7 @@ const asyncHandler = require("express-async-handler");
 const MenuItem = require("../models/menuItem.model");
 const Menu = require("../models/menu.model");
 const Vendor = require("../models/vendor.model");
+const { default: mongoose } = require("mongoose");
 
 //@desc Get All Vendors
 //@route GET /api/customer/Vendors
@@ -54,14 +55,27 @@ exports.getVendors = asyncHandler(async (req, res) => {
 
 exports.getVendorById = asyncHandler(async (req, res, next) => {
   const vendor_id = req.params.vendor_id;
+  const vendor_id_object = new mongoose.Types.ObjectId(vendor_id);
+
   try {
-    const menu = Menu.find({ vendor_id: id });
+    const menu = await Menu.findOne({ vendor_id: vendor_id_object });
     return res.status(200).json(menu);
   } catch (err) {
     return res.status(500).json({ error: "Vendor doesnt exist" });
   }
 });
 
+exports.getVendorDetailsById = asyncHandler(async (req, res, next) => {
+  const vendor_id = req.params.vendor_id;
+  const vendor_id_object = new mongoose.Types.ObjectId(vendor_id);
+
+  try {
+    const v_details = await Vendor.findOne({ _id: vendor_id_object });
+    return res.status(200).json(v_details);
+  } catch (err) {
+    return res.status(500).json({ error: "Vendor doesnt exist" });
+  }
+});
 //@desc Get Restaurants By Food Item
 //@route GET /api/customer/Vendor
 //@access public
@@ -87,3 +101,40 @@ exports.getVendorById = asyncHandler(async (req, res, next) => {
 //   }
 //   res.status(200).json(Vendor.items);
 // });
+exports.getCartPrice = asyncHandler(async (req, res) => {
+  try {
+    const { vendor_id, cartItems } = req.query;
+
+    if (!vendor_id || !cartItems) {
+      return res.status(400).json({ error: "Invalid input parameters" });
+    }
+
+    const parsedCartItems = JSON.parse(cartItems);
+
+    const restaurant = await Menu.findOne({ vendor_id: vendor_id });
+
+    if (!restaurant) {
+      return res.status(404).json({ error: "Restaurant not found" });
+    }
+
+    const menuItems = restaurant.items;
+    let totalPrice = 0;
+
+    for (const cartItem of parsedCartItems) {
+      const menuItem = menuItems.find((item) => {
+        return item.item_id === cartItem.id;
+      });
+
+      console.log(menuItem)
+
+      if (menuItem) {
+        totalPrice += menuItem.price * cartItem.quantity;
+      } else {
+        console.log("does not work");
+      }
+    }
+    return res.json({ totalPrice });
+  } catch (error) {
+    return res.status(500).json({ error: error });
+  }
+});
