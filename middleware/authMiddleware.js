@@ -3,7 +3,7 @@ const asyncHandler = require("express-async-handler");
 const Restaurant = require("../models/vendor.model");
 
 const extractTokenMiddleware = asyncHandler(async (req, res, next) => {
-  const tokenHeader = req.headers["authorization"];
+  const tokenHeader = req.headers["Authorization"];
 
   if (!tokenHeader) {
     res.status(401);
