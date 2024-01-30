@@ -11,7 +11,6 @@ const { default: mongoose } = require("mongoose");
 
 const getAllItems = asyncHandler(async (req, res) => {
   const { vendor_id } = req;
-
   if (!vendor_id) {
     res.status(400);
     throw new Error("Vendor ID is required");
