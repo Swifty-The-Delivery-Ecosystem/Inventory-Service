@@ -9,16 +9,16 @@ const {
 const extractTokenMiddleware = require("../middleware/authMiddleware");
 
 const router = express.Router();
-router.use(extractTokenMiddleware);
+// router.use(extractTokenMiddleware);
 
-router.get("/menuitems", getAllItems);
+router.get("/menuitems", extractTokenMiddleware, getAllItems);
 
-router.post("/menuitems", addItem);
+router.post("/menuitems",extractTokenMiddleware, addItem);
 
-router.put("/menuitems", updateItem);
+router.put("/menuitems",extractTokenMiddleware, updateItem);
 
-router.delete("/menuitems", deleteItem);
+router.delete("/menuitems",extractTokenMiddleware, deleteItem);
 
-router.put("/updatequantity", updateAvailablity);
+router.put("/updatequantity",extractTokenMiddleware, updateAvailablity);
 
 module.exports = router;
