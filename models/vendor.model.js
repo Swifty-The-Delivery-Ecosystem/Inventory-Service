@@ -1,55 +1,56 @@
-const mongoose = require('mongoose');
-const MenuItem = require("./menuItem.model");
+const { model, Schema } = require("mongoose");
 
+const vendorSchema = new Schema(
+  {
+    ownerName: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    restaurantName: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    email: {
+      type: String,
+      required: true,
+      trim: true,
+      unique: true,
+      immutable: true,
+    },
+    phone: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    location: {
+      type: Number,
+      required: true, // Index according to the list [Mess, GH, Acad, Delta]
+    },
+    supported_location: [Number],
+    isActive: {
+      type: Boolean,
+      default: true,
+    },
+    status: {
+      type: String,
+      enum: ["active", "in process", "debarred", "closed"],
+      default: "in process",
+    },
+    ratings: {
+      type: Number,
+    },
+    delivery_partners: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "DeliveryPartner",
+      },
+    ],
+    images: [String],
+    tags: [String],
+  },
+  { timestamps: true }
+);
 
-const VendorSchema = mongoose.Schema({
-  name : {
-    type: String,
-    required : [true, "Please enter an Restaurant name"]
-  },
-  image_url : {
-    type: String,
-    required : [true, "Provide url for restaurant image"]
-  },
-  phone : {
-    type: Number,
-    required : [true, "Please enter a valid phone number"]
-  },
-  owner : {
-    type: String,
-  
-  },
-
-  location : {
-    type: Number,
-    required : [true, "Please enter a primary location"],
-  },
-  location_served: {
-    type: [Number],
-    //TODO: Add default
-  },  
-  description : {
-    type: String,
-  },
-  rating : {
-    type: Number,
-  },
-  number_of_ratings : {
-    type: Number,
-  },
-  tags: { 
-    type: [String]
-  },
-  category: {
-    type : String
-  },
-  status: {
-    type: String
-  },
-  delivery_partners:{
-    type : [mongoose.Schema.Types.ObjectId]
-  }
-
-},{timestamp:true});
-
-module.exports = mongoose.model('Vendor',VendorSchema);
+module.exports = model("Vendor", vendorSchema);
