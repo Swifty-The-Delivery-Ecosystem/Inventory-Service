@@ -21,17 +21,19 @@ jobs:
 
       - name: Create .env.development file
         env:
-          PORT: ${{ secrets.PORT }}
-          MONGODB_URI: ${{ secrets.MONGODB_URI }}
-          NODE_ENV: development
-          JWT_SECRET: ${{ secrets.JWT_SECRET }}
-          ORIGIN: "*"
+        PORT: $${{secrets.PORT}}
+        CONNECTION_STRING: ${{ secrets.CONNECTION_STRING }}
+        JWT_SECRET: $${{secrets.JWT_SECRET}}
+        NODE_ENV: development
+        TEST_CONNECTION_STRING: ${{ secrets.TEST_CONNECTION_STRING }}
+        ORIGIN: "*"
+
         run: |
           echo "PORT=${PORT}" >> .env.development
-          echo "MONGODB_URI=${MONGODB_URI}" >> .env.development
-          echo "NODE_ENV=${NODE_ENV}" >> .env.development
+          echo "CONNECTION_STRING=${CONNECTION_STRING}" >> .env.development
           echo "JWT_SECRET=${JWT_SECRET}" >> .env.development
-          echo "ORIGIN=${ORIGIN}" >> .env.development
+          echo "NODE_ENV=${NODE_ENV}" >> .env.development
+          echo "TEST_CONNECTION_STRING=${TEST_CONNECTION_STRING}" >> .env.development
 
       - name: Run Jest tests
         run: npm test
