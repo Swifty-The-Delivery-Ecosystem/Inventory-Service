@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">29.31% </span>
+                <span class="strong">18.62% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>85/290</span>
+                <span class='fraction'>54/290</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">30% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>3/10</span>
+                <span class='fraction'>1/2</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">29.31% </span>
+                <span class="strong">18.62% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>85/290</span>
+                <span class='fraction'>54/290</span>
             </div>
         
             
@@ -399,32 +399,32 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -491,11 +491,11 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -689,32 +689,32 @@ const getAllItems = asyncHandler(async (req, res) =&gt; {
 //@access private
 &nbsp;
 const addItem = asyncHandler(async (req, res) =&gt; {
-  const {
-    name,
-    type,
-    price,
-    quantity,
-    image_url,
-    description,
-    rating,
-    is_veg,
-    number_of_ratings,
-    tags,
-    category,
-    is_available,
-    nutritional_values,
-    is_healthy,
-    on_offer,
-    offer_price,
-  } = req.body;
-&nbsp;
-  const { vendor_id } = req;
-  console.log(vendor_id);
-&nbsp;
-  if (!vendor_id<span class="branch-0 cbranch-no" title="branch not covered" > || !name<span class="branch-0 cbranch-no" title="branch not covered" > </span>|| !price<span class="branch-0 cbranch-no" title="branch not covered" > </span>|| !quantity<span class="branch-0 cbranch-no" title="branch not covered" > </span>|| !image_url)</span> {
-    res.status(400);
-    throw new Error("All fields are required");
-<span class="branch-0 cbranch-no" title="branch not covered" >  }</span>
+<span class="cstat-no" title="statement not covered" >  const {</span>
+<span class="cstat-no" title="statement not covered" >    name,</span>
+<span class="cstat-no" title="statement not covered" >    type,</span>
+<span class="cstat-no" title="statement not covered" >    price,</span>
+<span class="cstat-no" title="statement not covered" >    quantity,</span>
+<span class="cstat-no" title="statement not covered" >    image_url,</span>
+<span class="cstat-no" title="statement not covered" >    description,</span>
+<span class="cstat-no" title="statement not covered" >    rating,</span>
+<span class="cstat-no" title="statement not covered" >    is_veg,</span>
+<span class="cstat-no" title="statement not covered" >    number_of_ratings,</span>
+<span class="cstat-no" title="statement not covered" >    tags,</span>
+<span class="cstat-no" title="statement not covered" >    category,</span>
+<span class="cstat-no" title="statement not covered" >    is_available,</span>
+<span class="cstat-no" title="statement not covered" >    nutritional_values,</span>
+<span class="cstat-no" title="statement not covered" >    is_healthy,</span>
+<span class="cstat-no" title="statement not covered" >    on_offer,</span>
+<span class="cstat-no" title="statement not covered" >    offer_price,</span>
+<span class="cstat-no" title="statement not covered" >  } = req.body;</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >  const { vendor_id } = req;</span>
+<span class="cstat-no" title="statement not covered" >  console.log(vendor_id);</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >  if (!vendor_id || !name || !price || !quantity || !image_url) {</span>
+<span class="cstat-no" title="statement not covered" >    res.status(400);</span>
+<span class="cstat-no" title="statement not covered" >    throw new Error("All fields are required");</span>
+<span class="cstat-no" title="statement not covered" >  }</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >  let vendor_id_object = new mongoose.Types.ObjectId(vendor_id);</span>
 <span class="cstat-no" title="statement not covered" >  const menu = await Menu.findOne({</span>
@@ -781,11 +781,11 @@ const addItem = asyncHandler(async (req, res) =&gt; {
 //@access private
 &nbsp;
 const updateItem = asyncHandler(async (req, res) =&gt; {
-  const item = await MenuItem.findOne({ item_id: req.query.id });
-  if (!item) {
-    res.status(404);
-    throw new Error("item not found");
-<span class="branch-0 cbranch-no" title="branch not covered" >  }</span>
+<span class="cstat-no" title="statement not covered" >  const item = await MenuItem.findOne({ item_id: req.query.id });</span>
+<span class="cstat-no" title="statement not covered" >  if (!item) {</span>
+<span class="cstat-no" title="statement not covered" >    res.status(404);</span>
+<span class="cstat-no" title="statement not covered" >    throw new Error("item not found");</span>
+<span class="cstat-no" title="statement not covered" >  }</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >  const { vendor_id } = req;</span>
 <span class="cstat-no" title="statement not covered" ></span>
@@ -940,7 +940,7 @@ module.exports = {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-04-02T18:31:32.837Z
+                at 2024-04-02T18:55:05.410Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

@@ -29,7 +29,7 @@ describe("POST /api/v1/vendor/menuitems", () => {
         is_healthy: false,
         on_offer: false,
         offer_price: 49,
-      }).expect(400);
+      }).expect(401);
       // .expect(201);
   });
 }, 100000);

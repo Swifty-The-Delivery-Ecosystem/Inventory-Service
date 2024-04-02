@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">46.75% </span>
+                <span class="strong">31.81% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>72/154</span>
+                <span class='fraction'>49/154</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">16.66% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>1/6</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">46.75% </span>
+                <span class="strong">31.81% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>72/154</span>
+                <span class='fraction'>49/154</span>
             </div>
         
             
@@ -228,28 +228,6 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -257,13 +235,35 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -382,28 +382,28 @@ const { default: mongoose } = require("mongoose");
 //@access public
 &nbsp;
 exports.getVendors = asyncHandler(async (req, res) =&gt; {
-  try {
-    const {
-      primary_location,
-      tag,
-      is_veg,
-      sort,
-      page = 1,
-      pageSize = 10,
-    } = req.query;
-    const filters = {};
-    if (primary_location) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
+<span class="cstat-no" title="statement not covered" >  try {</span>
+<span class="cstat-no" title="statement not covered" >    const {</span>
+<span class="cstat-no" title="statement not covered" >      primary_location,</span>
+<span class="cstat-no" title="statement not covered" >      tag,</span>
+<span class="cstat-no" title="statement not covered" >      is_veg,</span>
+<span class="cstat-no" title="statement not covered" >      sort,</span>
+<span class="cstat-no" title="statement not covered" >      page = 1,</span>
+<span class="cstat-no" title="statement not covered" >      pageSize = 10,</span>
+<span class="cstat-no" title="statement not covered" >    } = req.query;</span>
+<span class="cstat-no" title="statement not covered" >    const filters = {};</span>
+<span class="cstat-no" title="statement not covered" >    if (primary_location) {</span>
 <span class="cstat-no" title="statement not covered" >      filters.location_served = { $in: [primary_location] };</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
-    if (tag) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
+<span class="cstat-no" title="statement not covered" >    if (tag) {</span>
 <span class="cstat-no" title="statement not covered" >      filters.tags = { $in: [tag] };</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
-    if (is_veg) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
+<span class="cstat-no" title="statement not covered" >    if (is_veg) {</span>
 <span class="cstat-no" title="statement not covered" >      filters.is_veg = true;</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
-&nbsp;
-    const sortOptions = {};
-    if (sort) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >    const sortOptions = {};</span>
+<span class="cstat-no" title="statement not covered" >    if (sort) {</span>
 <span class="cstat-no" title="statement not covered" >      const sortFields = sort.split(",");</span>
 <span class="cstat-no" title="statement not covered" >      sortFields.forEach((field) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >        const order = field.endsWith("-") ? -1 : 1;</span>
@@ -411,13 +411,13 @@ exports.getVendors = asyncHandler(async (req, res) =&gt; {
 <span class="cstat-no" title="statement not covered" >        sortOptions[fieldName] = order;</span>
 <span class="cstat-no" title="statement not covered" >      });</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
-&nbsp;
-    const vendors = await Vendor.find(filters)
-      .sort(sortOptions)
-      .skip((page - 1) * pageSize)
-      .limit(pageSize);
-    return res.status(200).json(vendors);
-  } <span class="branch-0 cbranch-no" title="branch not covered" >catch (err) {</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >    const vendors = await Vendor.find(filters)</span>
+<span class="cstat-no" title="statement not covered" >      .sort(sortOptions)</span>
+<span class="cstat-no" title="statement not covered" >      .skip((page - 1) * pageSize)</span>
+<span class="cstat-no" title="statement not covered" >      .limit(pageSize);</span>
+<span class="cstat-no" title="statement not covered" >    return res.status(200).json(vendors);</span>
+<span class="cstat-no" title="statement not covered" >  } catch (err) {</span>
 <span class="cstat-no" title="statement not covered" >    return res.status(500).json({ error: "Internal Server Error" });</span>
 <span class="cstat-no" title="statement not covered" >  }</span>
 });
@@ -532,7 +532,7 @@ exports.getCartPrice = asyncHandler(async (req, res) =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-04-02T18:31:32.837Z
+                at 2024-04-02T18:55:05.410Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

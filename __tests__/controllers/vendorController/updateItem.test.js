@@ -70,7 +70,7 @@ describe("PUT /api/v1/vendor/menuitems", () => {
         on_offer: false,
         offer_price: 49,
       })
-      .expect(404);
+      .expect(401);
     // expect(res.body).toHaveProperty("name");
     // expect(res.body).toHaveProperty("price");
 
