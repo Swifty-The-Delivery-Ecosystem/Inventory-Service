@@ -30,7 +30,7 @@ jobs:
       
       
 
-      - name: Create .env.development file
+      - name: Create .env file
         env:
           PORT: $${{secrets.PORT}}
           CONNECTION_STRING: "mongodb://test:test@localhost:27017"
@@ -40,11 +40,11 @@ jobs:
           ORIGIN: "*"
 
         run: |
-          echo "PORT=${PORT}" >> .env.development
-          echo "CONNECTION_STRING=${CONNECTION_STRING}" >> .env.development
-          echo "JWT_SECRET=${JWT_SECRET}" >> .env.development
-          echo "NODE_ENV=${NODE_ENV}" >> .env.development
-          echo "TEST_CONNECTION_STRING=${TEST_CONNECTION_STRING}" >> .env.development
+          echo "PORT=${PORT}" >> .env
+          echo "CONNECTION_STRING=${CONNECTION_STRING}" >> .env
+          echo "JWT_SECRET=${JWT_SECRET}" >> .env
+          echo "NODE_ENV=${NODE_ENV}" >> .env
+          echo "TEST_CONNECTION_STRING=${TEST_CONNECTION_STRING}" >> .env
 
       - name: Run Jest tests
         run: npm test
