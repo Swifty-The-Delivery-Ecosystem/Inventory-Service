@@ -1,0 +1,45 @@
+name: Update docker dev image
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Create .env.development file
+        env:
+          PORT: $${{secrets.PORT}}
+          CONNECTION_STRING: ${{ secrets.CONNECTION_STRING }}
+          JWT_SECRET: $${{secrets.JWT_SECRET}}
+          NODE_ENV: development
+          TEST_CONNECTION_STRING: ${{ secrets.TEST_CONNECTION_STRING }}
+          ORIGIN: "*"
+
+        run: |
+          echo "PORT=${PORT}" >> .env.development
+          echo "CONNECTION_STRING=${CONNECTION_STRING}" >> .env.development
+          echo "JWT_SECRET=${JWT_SECRET}" >> .env.development
+          echo "NODE_ENV=${NODE_ENV}" >> .env.development
+          echo "TEST_CONNECTION_STRING=${TEST_CONNECTION_STRING}" >> .env.development
+          
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_TOKEN }}
+
+      - name: Build Docker image
+        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/swifty-inventory-service .
+
+      - name: Push Docker image
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/swifty-inventory-service

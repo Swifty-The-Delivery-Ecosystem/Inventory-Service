@@ -1,0 +1,50 @@
+name: Run Tests and Create .env.development
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      mongodb:
+        image: mongo
+        ports:
+          - 27017:27017
+        env:
+          MONGO_INITDB_ROOT_USERNAME: test
+          MONGO_INITDB_ROOT_PASSWORD: test
+          MONGO_INITDB_ROOT_ROLE: dbOwner
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: npm install
+      
+      
+
+      - name: Create .env file
+        env:
+          PORT: $${{secrets.PORT}}
+          CONNECTION_STRING: "mongodb://test:test@localhost:27017"
+          JWT_SECRET: $${{secrets.JWT_SECRET}}
+          NODE_ENV: development
+          TEST_CONNECTION_STRING: ${{ secrets.TEST_CONNECTION_STRING }}
+          ORIGIN: "*"
+
+        run: |
+          echo "PORT=${PORT}" >> .env
+          echo "CONNECTION_STRING=${CONNECTION_STRING}" >> .env
+          echo "JWT_SECRET=${JWT_SECRET}" >> .env
+          echo "NODE_ENV=${NODE_ENV}" >> .env
+          echo "TEST_CONNECTION_STRING=${TEST_CONNECTION_STRING}" >> .env
+
+      - name: Run Jest tests
+        run: npm test
