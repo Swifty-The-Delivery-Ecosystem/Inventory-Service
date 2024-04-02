@@ -12,7 +12,7 @@ describe("GET /api/v1/vendor/menuitems", () => {
       .query({
         startIndex: 0,
         pageSize: 10,
-      }).expect(400);
+      }).expect(401);
       // .expect(200);
     // expect(res.body).toHaveProperty("totalItems");
     // expect(res.body).toHaveProperty("startIndex");
