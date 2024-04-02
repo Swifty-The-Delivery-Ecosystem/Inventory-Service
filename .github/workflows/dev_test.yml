@@ -11,6 +11,15 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    services:
+      mongodb:
+        image: mongo
+        ports:
+          - 27017:27017
+        env:
+          MONGO_INITDB_ROOT_USERNAME: test
+          MONGO_INITDB_ROOT_PASSWORD: test
+          MONGO_INITDB_ROOT_ROLE: dbOwner
 
     steps:
       - name: Checkout code
@@ -18,11 +27,13 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+      
+      
 
       - name: Create .env.development file
         env:
           PORT: $${{secrets.PORT}}
-          CONNECTION_STRING: ${{ secrets.CONNECTION_STRING }}
+          CONNECTION_STRING: "mongodb://test:test@localhost:27017"
           JWT_SECRET: $${{secrets.JWT_SECRET}}
           NODE_ENV: development
           TEST_CONNECTION_STRING: ${{ secrets.TEST_CONNECTION_STRING }}
