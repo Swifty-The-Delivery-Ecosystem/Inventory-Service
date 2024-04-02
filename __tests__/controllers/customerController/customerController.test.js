@@ -4,9 +4,9 @@ const app = require("../../../index");
 
 require("dotenv").config();
 
-describe("GET /api/v1/customer/vendors", () => {
+describe("GET /api/v1/inventory/customer/vendors", () => {
   it("should return a list of vendors", async () => {
-    const res = await request(app).get("/api/v1/customer/vendors");
+    const res = await request(app).get("/api/v1/inventory/customer/vendors");
     expect(res.statusCode).toBe(200);
   });
 });
