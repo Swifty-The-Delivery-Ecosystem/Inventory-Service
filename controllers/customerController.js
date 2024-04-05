@@ -139,7 +139,7 @@ exports.getCartPrice = asyncHandler(async (req, res) => {
         return item.item_id === cartItem.id;
       });
 
-      console.log(menuItem)
+      console.log(menuItem);
 
       if (menuItem) {
         totalPrice += menuItem.price * cartItem.quantity;
@@ -150,5 +150,36 @@ exports.getCartPrice = asyncHandler(async (req, res) => {
     return res.json({ totalPrice });
   } catch (error) {
     return res.status(500).json({ error: error });
+  }
+});
+
+exports.getItem = asyncHandler(async (req, res) => {
+  try {
+    const { cartItems } = req.query;
+    let finalitems = [];
+
+    const parsedCartItems = JSON.parse(cartItems);
+
+    const menuItems = await MenuItem.find();
+
+    for (let i = 0; i < parsedCartItems.length; i++) {
+      const cartItem = parsedCartItems[i];
+      let menuItem = null;
+
+      for (let j = 0; j < menuItems.length; j++) {
+        const item = menuItems[j];
+
+        if (String(item.item_id) === cartItem.id) {
+          menuItem = item;
+          finalitems.push(menuItem);
+          break;
+        }
+      }
+    }
+
+    return res.json({ finalitems });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Internal Server Error" });
   }
 });

@@ -2,16 +2,12 @@
   "name": "inventory-service",
   "version": "1.0.0",
   "scripts": {
-    "test": "npm test",
+    "test": "jest",
     "start": "node index.js",
     "dev": "nodemon index.js"
   },
   "description": "Service to manage out all inventory related API calls for Swifty app",
   "main": "index.js",
-  "scripts": {
-    "test": "jest",
-    "start": "nodemon index.js"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Swifty-The-Delivery-Ecosystem/Inventory-Service.git"

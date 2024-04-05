@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">77.77% </span>
+                <span class="strong">27.58% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>21/27</span>
+                <span class='fraction'>8/29</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>2/4</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">77.77% </span>
+                <span class="strong">27.58% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>21/27</span>
+                <span class='fraction'>8/29</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -90,30 +90,34 @@
 <a name='L25'></a><a href='#L25'>25</a>
 <a name='L26'></a><a href='#L26'>26</a>
 <a name='L27'></a><a href='#L27'>27</a>
-<a name='L28'></a><a href='#L28'>28</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -122,25 +126,27 @@ const asyncHandler = require("express-async-handler");
 const Restaurant = require("../models/vendor.model");
 &nbsp;
 const extractTokenMiddleware = asyncHandler(async (req, res, next) =&gt; {
-  const tokenHeader = req.headers["authorization"];
-&nbsp;
-  if (!tokenHeader) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
+<span class="cstat-no" title="statement not covered" >  const tokenHeader = req.headers.authorization;</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >  if (!tokenHeader) {</span>
 <span class="cstat-no" title="statement not covered" >    res.status(401);</span>
 <span class="cstat-no" title="statement not covered" >    throw new Error("Unauthorized: Token missing");</span>
 <span class="cstat-no" title="statement not covered" >  }</span>
-&nbsp;
-  const token = tokenHeader.split(" ")[1];
-&nbsp;
-  jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) =&gt; {
-    if (err) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >  const token = tokenHeader.split(" ")[1];</span>
+<span class="cstat-no" title="statement not covered" >  </span>
+<span class="cstat-no" title="statement not covered" >  await jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    console.log(decoded);    </span>
+<span class="cstat-no" title="statement not covered" >if (err) {</span>
 <span class="cstat-no" title="statement not covered" >      res.status(401);</span>
 <span class="cstat-no" title="statement not covered" >      throw new Error("Unauthorized: Invalid token");</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
-&nbsp;
-    const vendor_id = decoded.id;
-    req.vendor_id = vendor_id;
-    next();
-  });
+<span class="cstat-no" title="statement not covered" >   </span>
+<span class="cstat-no" title="statement not covered" >    const vendor_id = decoded.userId;</span>
+<span class="cstat-no" title="statement not covered" >    console.log(vendor_id);</span>
+<span class="cstat-no" title="statement not covered" >    req.vendor_id = vendor_id;</span>
+<span class="cstat-no" title="statement not covered" >    next();</span>
+<span class="cstat-no" title="statement not covered" >  });</span>
 });
 &nbsp;
 module.exports = extractTokenMiddleware;
@@ -151,7 +157,7 @@ module.exports = extractTokenMiddleware;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-01-19T17:46:56.034Z
+                at 2024-02-14T17:00:19.674Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
