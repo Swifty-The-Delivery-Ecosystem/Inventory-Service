@@ -4,7 +4,7 @@ const app = require("../../../index");
 describe("GET /api/v1/vendor/menuitems", () => {
   it("Fetch Items from Menu with Pagination", async () => {
     const res = await request(app)
-      .get("/api/v1/vendor/menuitems")
+      .get("/api/v1/inventory/vendor/menuitems")
       .set(
         "Authorization",
         "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWNjYzdmMmQ3N2RlM2UxMmUwZjYxNjIiLCJpYXQiOjE3MDc5MTkzNjEsImV4cCI6MTcwODM1MTM2MX0.ciIuu3Unw1_xXOzPV0SSBcIGhnTShOvpt456LDBYGgE"
@@ -12,8 +12,8 @@ describe("GET /api/v1/vendor/menuitems", () => {
       .query({
         startIndex: 0,
         pageSize: 10,
-      });
-    //   .expect(200);
+      }).expect(401);
+      // .expect(200);
     // expect(res.body).toHaveProperty("totalItems");
     // expect(res.body).toHaveProperty("startIndex");
     // expect(res.body).toHaveProperty("pageSize");

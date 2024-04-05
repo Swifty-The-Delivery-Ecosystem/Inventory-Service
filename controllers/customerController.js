@@ -39,7 +39,7 @@ exports.getVendors = asyncHandler(async (req, res) => {
       });
     }
 
-    const vendors = await Vendor.find(filters)
+    const vendors = await Vendor.find({...filters, status: 'active'})
       .sort(sortOptions)
       .skip((page - 1) * pageSize)
       .limit(pageSize);

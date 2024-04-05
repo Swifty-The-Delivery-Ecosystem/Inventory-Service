@@ -7,7 +7,7 @@ const randomUtils = require("../../../utils/random.utils");
 describe("POST /api/v1/vendor/menuitems", () => {
   it("Add an item to the menu", async () => {
     const res = await request(app)
-      .post("/api/v1/vendor/menuitems")
+      .post("/api/v1/inventory/vendor/menuitems")
       .set(
         "Authorization",
         "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWNjYzdmMmQ3N2RlM2UxMmUwZjYxNjIiLCJpYXQiOjE3MDc5MTkzNjEsImV4cCI6MTcwODM1MTM2MX0.ciIuu3Unw1_xXOzPV0SSBcIGhnTShOvpt456LDBYGgE"
@@ -29,7 +29,7 @@ describe("POST /api/v1/vendor/menuitems", () => {
         is_healthy: false,
         on_offer: false,
         offer_price: 49,
-      });
-    // .expect(201);
+      }).expect(401);
+      // .expect(201);
   });
 }, 100000);

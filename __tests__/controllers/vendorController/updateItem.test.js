@@ -10,7 +10,7 @@ describe("PUT /api/v1/vendor/menuitems", () => {
 
   test("Add Item", async () => {
     const res = await request(app)
-      .post("/api/v1/vendor/menuitems")
+      .post("/api/v1/inventory/vendor/menuitems")
       .set(
         "Authorization",
         "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWNjYzdmMmQ3N2RlM2UxMmUwZjYxNjIiLCJpYXQiOjE3MDc5MTkzNjEsImV4cCI6MTcwODM1MTM2MX0.ciIuu3Unw1_xXOzPV0SSBcIGhnTShOvpt456LDBYGgE"
@@ -39,12 +39,12 @@ describe("PUT /api/v1/vendor/menuitems", () => {
 
   it("Update Item", async () => {
     const itemIdToUpdate = item_id;
-    // const itemToUpdate = await MenuItem.findOne({ item_id: itemIdToUpdate });
+    const itemToUpdate = await MenuItem.findOne({ item_id: itemIdToUpdate });
     // const vendor_id = itemToUpdate.vendor_id;
     const new_name = randomUtils.randomName();
 
     const res = await request(app)
-      .put("/api/v1/vendor/menuitems")
+      .put("/api/v1/inventory/vendor/menuitems")
       .query({ id: itemIdToUpdate })
       .set(
         "Authorization",
@@ -53,8 +53,7 @@ describe("PUT /api/v1/vendor/menuitems", () => {
       .set("Accept", "application/json")
       .send({
         item_id: itemIdToUpdate,
-        vendor_id:
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWNjYzdmMmQ3N2RlM2UxMmUwZjYxNjIiLCJpYXQiOjE3MDc5MTkzNjEsImV4cCI6MTcwODM1MTM2MX0.ciIuu3Unw1_xXOzPV0SSBcIGhnTShOvpt456LDBYGgE',
+        vendor_id: vendor_id,
         name: new_name,
         is_veg: true,
         image_url: "https://i.ibb.co/jZgGpxX/momo-blog-500x500.jpg",
@@ -70,10 +69,10 @@ describe("PUT /api/v1/vendor/menuitems", () => {
         is_healthy: false,
         on_offer: false,
         offer_price: 49,
-      });
-    //   .expect(200);
-    // expect(res.body).toHaveProperty("name");
-    // expect(res.body).toHaveProperty("price");
+      })
+      .expect(200);
+    expect(res.body).toHaveProperty("name");
+    expect(res.body).toHaveProperty("price");
 
     // const updatedItem = await MenuItem.findOne({ item_id: itemIdToUpdate });
     // expect(updatedItem).toBeTruthy();
