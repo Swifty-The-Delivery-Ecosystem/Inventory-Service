@@ -39,7 +39,7 @@ exports.getVendors = asyncHandler(async (req, res) => {
       });
     }
 
-    const vendors = await Vendor.find({...filters, status: 'active'})
+    const vendors = await Vendor.find({ ...filters, status: "active" })
       .sort(sortOptions)
       .skip((page - 1) * pageSize)
       .limit(pageSize);
@@ -180,6 +180,46 @@ exports.getItem = asyncHandler(async (req, res) => {
     return res.json({ finalitems });
   } catch (error) {
     console.error(error);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+//@desc Search Restaurants
+//@route GET /api/customer/search/restaurants
+//@access public
+exports.searchRestaurants = asyncHandler(async (req, res) => {
+  const searchTerm = req.query.restaurantName;
+
+  if (!searchTerm) {
+    return res.status(400).json({ error: "Search term is required" });
+  }
+  try {
+    const restaurants = await Vendor.find({
+      restaurantName: { $regex: searchTerm, $options: "i" },
+    });
+    return res.status(200).json(restaurants);
+  } catch (error) {
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+//@desc Search Menu Items
+//@route GET /api/customer/search/menuitems
+//@access public
+
+exports.searchMenuItems = asyncHandler(async (req, res) => {
+  const itemName = req.query.itemName;
+
+  if (!itemName) {
+    return res.status(400).json({ error: "Item name is required" });
+  }
+
+  try {
+    const menuItems = await MenuItem.find({
+      name: { $regex: itemName, $options: "i" },
+    });
+    return res.status(200).json(menuItems);
+  } catch (error) {
     return res.status(500).json({ error: "Internal Server Error" });
   }
 });
