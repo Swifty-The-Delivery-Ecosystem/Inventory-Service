@@ -287,6 +287,8 @@ const createDiscount = asyncHandler(async (req, res) => {
     offer_price
   } = req.body
 
+  console.log(item_id)
+
   const {vendor_id} = req;
 
   const item = await MenuItem.findOne({ item_id: item_id });
@@ -303,6 +305,11 @@ const createDiscount = asyncHandler(async (req, res) => {
   }
 
   const menuIndex = menu.items.findIndex(item => item.item_id === item_id);
+
+  if(menuIndex == -1){
+    res.status(404).send("Item not found in the menu");
+  }
+
   menu.items[menuIndex].on_offer = true;
   menu.items[menuIndex].offer_price = offer_price;
   await menu.save();
@@ -315,7 +322,9 @@ const createDiscount = asyncHandler(async (req, res) => {
 })
 
 const deleteDiscount = asyncHandler(async (req, res) => {
-  const item_id = req.body
+  const { item_id } = req.body
+
+  const {vendor_id} = req
 
   const item = await MenuItem.findOne({ item_id: item_id });
   if(!item){
