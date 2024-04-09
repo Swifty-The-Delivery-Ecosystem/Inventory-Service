@@ -281,10 +281,46 @@ const updateAvailablity = asyncHandler(async (req, res) => {
   res.status(200).json(updatedItem);
 });
 
+const createDiscount = asyncHandler(async (req, res) => {
+  const {
+    item_id,
+    offer_price
+  } = req.body
+  const item = await MenuItem.findOne({ item_id: item_id });
+
+  if(!item){
+    res.status(404).send("Item not found");
+  }
+
+  const updatedItem = await MenuItem.findOneAndUpdate(
+    { _id: item_id },
+    { on_offer: true, offer_price: offer_price },
+  )
+  res.status(200).send(updatedItem)
+})
+
+const deleteDiscount = asyncHandler(async (req, res) => {
+  const item_id = req.body
+
+  const item = await MenuItem.findOne({ item_id: item_id });
+  if(!item){
+    res.status(404).send("Item not found");
+  }
+
+  const updatedItem = await MenuItem.findOneAndUpdate(
+    { _id: item_id },
+    { on_offer: false, offer_price: 0 },
+  )
+
+  res.status(200).send(updatedItem)
+})
+
 module.exports = {
   addItem,
   updateItem,
   deleteItem,
   updateAvailablity,
   getAllItems,
+  createDiscount,
+  deleteDiscount
 };
