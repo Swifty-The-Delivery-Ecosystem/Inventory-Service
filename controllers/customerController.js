@@ -20,7 +20,7 @@ exports.getVendors = asyncHandler(async (req, res) => {
     } = req.query;
     const filters = {};
     if (primary_location) {
-      filters.location_served = { $in: [primary_location] };
+      filters.supported_location = { $in: [primary_location] };
     }
     if (tag) {
       filters.tags = { $in: [tag] };

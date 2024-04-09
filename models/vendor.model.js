@@ -55,6 +55,10 @@ const vendorSchema = new Schema(
     ],
     images: [String],
     tags: [String],
+    is_veg: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true }
 );
