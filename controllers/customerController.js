@@ -124,9 +124,6 @@ exports.getCartPrice = asyncHandler(async (req, res) => {
     if (!restaurant) {
       return res.status(404).json({ error: "Restaurant not found" });
     }
-    if (!restaurant) {
-      return res.status(404).json({ error: "Restaurant not found" });
-    }
 
     // Access menu items
     const menuItems = restaurant.items;
@@ -139,17 +136,16 @@ exports.getCartPrice = asyncHandler(async (req, res) => {
         return item.item_id === cartItem.id;
       });
 
-      console.log(menuItem);
-
       if (menuItem) {
-        totalPrice += menuItem.price * cartItem.quantity;
-      } else {
-        console.log("does not work");
+        const itemPrice = menuItem.on_offer
+          ? menuItem.offer_price
+          : menuItem.price;
+        totalPrice += itemPrice * cartItem.quantity;
       }
     }
     return res.json({ totalPrice });
   } catch (error) {
-    return res.status(500).json({ error: error });
+    return res.status(500).json({ error: error.message });
   }
 });
 
