@@ -5,6 +5,8 @@ const {
   deleteItem,
   updateAvailablity,
   getAllItems,
+  createDiscount,
+  deleteDiscount,
 } = require("../controllers/vendorController");
 const extractTokenMiddleware = require("../middleware/authMiddleware");
 
@@ -20,5 +22,10 @@ router.put("/menuitems",extractTokenMiddleware, updateItem);
 router.delete("/menuitems",extractTokenMiddleware, deleteItem);
 
 router.put("/updatequantity",extractTokenMiddleware, updateAvailablity);
+
+router.post("/discount", extractTokenMiddleware, createDiscount);
+
+router.delete("/discount", extractTokenMiddleware, deleteDiscount);
+
 
 module.exports = router;
