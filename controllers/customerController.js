@@ -223,3 +223,13 @@ exports.searchMenuItems = asyncHandler(async (req, res) => {
     return res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
+exports.getOfferItems = asyncHandler(async (req, res) => {
+  try {
+    const menuItems = await MenuItem.find({ on_offer: true });
+    return res.json({ menuItems });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+});

@@ -8,6 +8,7 @@ const {
   getItem,
   searchRestaurants,
   searchMenuItems,
+  getOfferItems
 } = require("../controllers/customerController");
 
 router.get("/vendors", getVendors);
@@ -23,5 +24,7 @@ router.get("/getItem", getItem);
 router.get("/searchRestaurant", searchRestaurants);
 
 router.get("/searchItem", searchMenuItems);
+
+router.get("/getOfferItems", getOfferItems);
 
 module.exports = router;
