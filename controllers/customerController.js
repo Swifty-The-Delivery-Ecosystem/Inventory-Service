@@ -77,38 +77,7 @@ exports.getVendorDetailsById = asyncHandler(async (req, res, next) => {
   }
 });
 
-const getRestaurantDetails = asyncHandler(async (req, res) => {
-  const restaurant_id = req.query.restaurant_id;
-  const restaurant = await Restaurant.findOne({ _id: restaurant_id });
 
-  if (!restaurant) {
-    return res.status(404).json({ message: "Restaurant not found" });
-  }
-
-  res.status(200).json(restaurant);
-});
-
-//@desc Get All Menu Items of a Restaurant
-//@route GET /api/customer/menuitems
-//@access public
-
-// const getMenu = asyncHandler( async (req,res) =>{
-//   const vendor_id = req.id
-// })
-
-//@desc Get All Menu Items of a Vendor
-//@route GET /api/customer/menuitems
-//@access public
-
-// const getMenuItems = asyncHandler(async (req, res) => {
-//   const Vendor_id = req.query.Vendor_id;
-//   const Vendor = await Vendor.findOne({ _id: Vendor_id });
-
-//   if (!Vendor) {
-//     return res.status(404).json({ message: "Vendor not found" });
-//   }
-//   res.status(200).json(Vendor.items);
-// });
 exports.getCartPrice = asyncHandler(async (req, res) => {
   try {
     const { vendor_id, cartItems } = req.query;
@@ -128,10 +97,8 @@ exports.getCartPrice = asyncHandler(async (req, res) => {
       return res.status(404).json({ error: "Restaurant not found" });
     }
 
-    // Access menu items
     const menuItems = restaurant.items;
 
-    // Calculate total cart price
     let totalPrice = 0;
 
     for (const cartItem of parsedCartItems) {

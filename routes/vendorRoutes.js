@@ -9,7 +9,6 @@ const {
 const extractTokenMiddleware = require("../middleware/authMiddleware");
 
 const router = express.Router();
-// router.use(extractTokenMiddleware);
 
 router.get("/menuitems", extractTokenMiddleware, getAllItems);
 
