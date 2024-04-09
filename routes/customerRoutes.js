@@ -5,7 +5,9 @@ const {
   getVendorById,
   getCartPrice,
   getVendorDetailsById,
-  getItem
+  getItem,
+  searchRestaurants,
+  searchMenuItems,
 } = require("../controllers/customerController");
 
 router.get("/vendors", getVendors);
@@ -17,5 +19,9 @@ router.get("/vendors/details/:vendor_id", getVendorDetailsById);
 router.get("/cartprice", getCartPrice);
 
 router.get("/getItem", getItem);
+
+router.get("/searchRestaurant", searchRestaurants);
+
+router.get("/searchItem", searchMenuItems);
 
 module.exports = router;
