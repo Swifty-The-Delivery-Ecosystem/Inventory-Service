@@ -286,14 +286,29 @@ const createDiscount = asyncHandler(async (req, res) => {
     item_id,
     offer_price
   } = req.body
+
+  const {vendor_id} = req;
+
   const item = await MenuItem.findOne({ item_id: item_id });
+
 
   if(!item){
     res.status(404).send("Item not found");
   }
 
+  const menu = await Menu.findOne({vendor_id: vendor_id});
+
+  if(!menu){
+    res.status(404).send("menu not found");
+  }
+
+  const menuIndex = menu.items.findIndex(item => item.item_id === item_id);
+  menu.items[menuIndex].on_offer = true;
+  menu.items[menuIndex].offer_price = offer_price;
+  await menu.save();
+
   const updatedItem = await MenuItem.findOneAndUpdate(
-    { _id: item_id },
+    { item_id: item_id },
     { on_offer: true, offer_price: offer_price },
   )
   res.status(200).send(updatedItem)
@@ -307,8 +322,19 @@ const deleteDiscount = asyncHandler(async (req, res) => {
     res.status(404).send("Item not found");
   }
 
+  const menu = await Menu.findOne({vendor_id: vendor_id});
+
+  if(!menu){
+    res.status(404).send("menu not found");
+  }
+
+  const menuIndex = menu.items.findIndex(item => item.item_id === item_id);
+  menu.items[menuIndex].on_offer = false;
+  menu.items[menuIndex].offer_price = 0;
+  await menu.save();
+
   const updatedItem = await MenuItem.findOneAndUpdate(
-    { _id: item_id },
+    { item_id: item_id },
     { on_offer: false, offer_price: 0 },
   )
 
