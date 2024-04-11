@@ -7,7 +7,10 @@ require("dotenv").config();
 
 const Redis = require("ioredis");
 const redisUri = process.env.REDIS_URI;
-const redis = new Redis(redisUri);
+const redis = new Redis(redisUri, {
+  enableOfflineQueue: false,
+  legacyMode: true,
+});
 
 //@desc Get All Vendors
 //@route GET /api/customer/Vendors
@@ -61,6 +64,9 @@ exports.getVendors = asyncHandler(async (req, res) => {
     return res.status(200).json(vendors);
   } catch (err) {
     return res.status(500).json({ error: "Internal Server Error" });
+  } finally {
+    // Disconnect from Redis after operation
+    redis.disconnect();
   }
 });
 
@@ -217,6 +223,9 @@ exports.getCartPrice = asyncHandler(async (req, res) => {
     return res.json({ totalPrice });
   } catch (error) {
     return res.status(500).json({ error: error.message });
+  } finally {
+    // Disconnect from Redis after operation
+    redis.disconnect();
   }
 });
 
@@ -277,6 +286,9 @@ exports.searchRestaurants = asyncHandler(async (req, res) => {
     return res.status(200).json(restaurants);
   } catch (error) {
     return res.status(500).json({ error: "Internal Server Error" });
+  } finally {
+    // Disconnect from Redis after operation
+    redis.disconnect();
   }
 });
 
@@ -307,6 +319,9 @@ exports.searchMenuItems = asyncHandler(async (req, res) => {
     return res.status(200).json(menuItems);
   } catch (error) {
     return res.status(500).json({ error: "Internal Server Error" });
+  } finally {
+    // Disconnect from Redis after operation
+    redis.disconnect();
   }
 });
 exports.getOfferItems = asyncHandler(async (req, res) => {
