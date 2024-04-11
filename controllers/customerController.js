@@ -3,11 +3,15 @@ const MenuItem = require("../models/menuItem.model");
 const Menu = require("../models/menu.model");
 const Vendor = require("../models/vendor.model");
 const { default: mongoose } = require("mongoose");
+require("dotenv").config();
+
+const Redis = require("ioredis");
+const redisUri = process.env.REDIS_URI;
+const redis = new Redis(redisUri);
 
 //@desc Get All Vendors
 //@route GET /api/customer/Vendors
 //@access public
-
 exports.getVendors = asyncHandler(async (req, res) => {
   try {
     const {
@@ -39,10 +43,21 @@ exports.getVendors = asyncHandler(async (req, res) => {
       });
     }
 
+    const cacheKey = `vendors:${JSON.stringify(filters)}:${JSON.stringify(
+      sortOptions
+    )}:${page}:${pageSize}`;
+    const cachedVendors = await redis.get(cacheKey);
+    if (cachedVendors) {
+      return res.status(200).json(JSON.parse(cachedVendors));
+    }
+
     const vendors = await Vendor.find({ ...filters, status: "active" })
       .sort(sortOptions)
       .skip((page - 1) * pageSize)
       .limit(pageSize);
+
+    await redis.set(cacheKey, JSON.stringify(vendors), "EX", 3600); // Cache for 1 hour
+
     return res.status(200).json(vendors);
   } catch (err) {
     return res.status(500).json({ error: "Internal Server Error" });
@@ -53,15 +68,48 @@ exports.getVendors = asyncHandler(async (req, res) => {
 //@route GET /api/customer/Vendor
 //@access public
 
+// exports.getVendorById = asyncHandler(async (req, res, next) => {
+//   const vendor_id = req.params.vendor_id;
+//   const vendor_id_object = new mongoose.Types.ObjectId(vendor_id);
+
+//   try {
+//     const menu = await Menu.findOne({ vendor_id: vendor_id_object });
+//     return res.status(200).json(menu);
+//   } catch (err) {
+//     return res.status(500).json({ error: "Vendor doesnt exist" });
+//   }
+// });
+
 exports.getVendorById = asyncHandler(async (req, res, next) => {
   const vendor_id = req.params.vendor_id;
   const vendor_id_object = new mongoose.Types.ObjectId(vendor_id);
 
   try {
+    // Check if vendor details exist in the cache
+    const cachedVendor = await redis.get(`vendor:${vendor_id}`);
+    if (cachedVendor) {
+      // If cached data exists, return it
+      return res.status(200).json(JSON.parse(cachedVendor));
+    }
+
+    // If not cached, fetch vendor details from the database
     const menu = await Menu.findOne({ vendor_id: vendor_id_object });
+
+    // If vendor details found, store them in the cache for future use
+    if (menu) {
+      await redis.set(`vendor:${vendor_id}`, JSON.stringify(menu));
+    } else {
+      // If vendor doesn't exist, return an error
+      return res.status(404).json({ error: "Vendor not found" });
+    }
+
+    // Return vendor details
     return res.status(200).json(menu);
   } catch (err) {
-    return res.status(500).json({ error: "Vendor doesnt exist" });
+    return res.status(500).json({ error: "Internal Server Error" });
+  } finally {
+    // Disconnect from Redis after operation
+    redis.disconnect();
   }
 });
 
@@ -70,24 +118,47 @@ exports.getVendorDetailsById = asyncHandler(async (req, res, next) => {
   const vendor_id_object = new mongoose.Types.ObjectId(vendor_id);
 
   try {
+    const cacheKey = `vendor-details:${vendor_id}`;
+    const cachedVendorDetails = await redis.get(cacheKey);
+    if (cachedVendorDetails) {
+      return res.status(200).json(JSON.parse(cachedVendorDetails));
+    }
+
     const v_details = await Vendor.findOne({ _id: vendor_id_object });
+
+    if (v_details) {
+      await redis.set(cacheKey, JSON.stringify(v_details), "EX", 3600); // Cache for 1 hour
+    } else {
+      return res.status(404).json({ error: "Vendor not found" });
+    }
+
     return res.status(200).json(v_details);
   } catch (err) {
-    return res.status(500).json({ error: "Vendor doesnt exist" });
+    return res.status(500).json({ error: "Internal Server Error" });
+  } finally {
+    redis.disconnect();
   }
 });
 
 const getRestaurantDetails = asyncHandler(async (req, res) => {
   const restaurant_id = req.query.restaurant_id;
+  const cacheKey = `restaurant:${restaurant_id}`;
+  const cachedRestaurant = await redis.get(cacheKey);
+
+  if (cachedRestaurant) {
+    return res.status(200).json(JSON.parse(cachedRestaurant));
+  }
+
   const restaurant = await Restaurant.findOne({ _id: restaurant_id });
 
   if (!restaurant) {
     return res.status(404).json({ message: "Restaurant not found" });
   }
 
+  await redis.set(cacheKey, JSON.stringify(restaurant), "EX", 3600); // Cache for 1 hour
+
   res.status(200).json(restaurant);
 });
-
 //@desc Get All Menu Items of a Restaurant
 //@route GET /api/customer/menuitems
 //@access public
@@ -189,10 +260,20 @@ exports.searchRestaurants = asyncHandler(async (req, res) => {
   if (!searchTerm) {
     return res.status(400).json({ error: "Search term is required" });
   }
+
+  const cacheKey = `search-restaurants:${searchTerm}`;
+  const cachedRestaurants = await redis.get(cacheKey);
+  if (cachedRestaurants) {
+    return res.status(200).json(JSON.parse(cachedRestaurants));
+  }
+
   try {
     const restaurants = await Vendor.find({
       restaurantName: { $regex: searchTerm, $options: "i" },
     });
+
+    await redis.set(cacheKey, JSON.stringify(restaurants), "EX", 3600); // Cache for 1 hour
+
     return res.status(200).json(restaurants);
   } catch (error) {
     return res.status(500).json({ error: "Internal Server Error" });
@@ -210,22 +291,42 @@ exports.searchMenuItems = asyncHandler(async (req, res) => {
     return res.status(400).json({ error: "Item name is required" });
   }
 
+  const cacheKey = `search-menu-items:${itemName}`;
+  const cachedMenuItems = await redis.get(cacheKey);
+  if (cachedMenuItems) {
+    return res.status(200).json(JSON.parse(cachedMenuItems));
+  }
+
   try {
     const menuItems = await MenuItem.find({
       name: { $regex: itemName, $options: "i" },
     });
+
+    await redis.set(cacheKey, JSON.stringify(menuItems), "EX", 3600); // Cache for 1 hour
+
     return res.status(200).json(menuItems);
   } catch (error) {
     return res.status(500).json({ error: "Internal Server Error" });
   }
 });
-
 exports.getOfferItems = asyncHandler(async (req, res) => {
+  const cacheKey = `offer-items`;
+  const cachedOfferItems = await redis.get(cacheKey);
+  if (cachedOfferItems) {
+    console.log("cachedOfferItems");
+    return res.json({ menuItems: JSON.parse(cachedOfferItems) });
+  }
+
   try {
     const menuItems = await MenuItem.find({ on_offer: true });
+
+    await redis.set(cacheKey, JSON.stringify(menuItems), "EX", 3600); // Cache for 1 hour
+
     return res.json({ menuItems });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: "Internal Server Error" });
+  } finally {
+    redis.disconnect();
   }
 });
