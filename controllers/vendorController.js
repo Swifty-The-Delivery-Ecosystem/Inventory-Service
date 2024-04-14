@@ -4,6 +4,10 @@ const Vendor = require("../models/vendor.model");
 const Menu = require("../models/menu.model");
 const { v4: uuidv4 } = require("uuid");
 const { default: mongoose } = require("mongoose");
+const Ably = require("ably");
+
+// const client = new Ably.Rest(process.env.API_KEY);
+const client = new Ably.Rest(process.env.ABLY_API_KEY);
 
 //@desc getItems
 //@route GET /api/v1/menuitems
@@ -282,31 +286,27 @@ const updateAvailablity = asyncHandler(async (req, res) => {
 });
 
 const createDiscount = asyncHandler(async (req, res) => {
-  const {
-    item_id,
-    offer_price
-  } = req.body
+  const { item_id, offer_price } = req.body;
 
-  console.log(item_id)
+  console.log(item_id);
 
-  const {vendor_id} = req;
+  const { vendor_id } = req;
 
   const item = await MenuItem.findOne({ item_id: item_id });
 
-
-  if(!item){
+  if (!item) {
     res.status(404).send("Item not found");
   }
 
-  const menu = await Menu.findOne({vendor_id: vendor_id});
+  const menu = await Menu.findOne({ vendor_id: vendor_id });
 
-  if(!menu){
+  if (!menu) {
     res.status(404).send("menu not found");
   }
 
-  const menuIndex = menu.items.findIndex(item => item.item_id === item_id);
+  const menuIndex = menu.items.findIndex((item) => item.item_id === item_id);
 
-  if(menuIndex == -1){
+  if (menuIndex == -1) {
     res.status(404).send("Item not found in the menu");
   }
 
@@ -316,39 +316,42 @@ const createDiscount = asyncHandler(async (req, res) => {
 
   const updatedItem = await MenuItem.findOneAndUpdate(
     { item_id: item_id },
-    { on_offer: true, offer_price: offer_price },
-  )
-  res.status(200).send(updatedItem)
-})
+    { on_offer: true, offer_price: offer_price }
+  );
+  const channel = client.channels.get("offers");
+  channel.publish("newOffer", "New offer created");
+  console.log("Offer created");
+  res.status(200).send(updatedItem);
+});
 
 const deleteDiscount = asyncHandler(async (req, res) => {
-  const { item_id } = req.body
+  const { item_id } = req.body;
 
-  const {vendor_id} = req
+  const { vendor_id } = req;
 
   const item = await MenuItem.findOne({ item_id: item_id });
-  if(!item){
+  if (!item) {
     res.status(404).send("Item not found");
   }
 
-  const menu = await Menu.findOne({vendor_id: vendor_id});
+  const menu = await Menu.findOne({ vendor_id: vendor_id });
 
-  if(!menu){
+  if (!menu) {
     res.status(404).send("menu not found");
   }
 
-  const menuIndex = menu.items.findIndex(item => item.item_id === item_id);
+  const menuIndex = menu.items.findIndex((item) => item.item_id === item_id);
   menu.items[menuIndex].on_offer = false;
   menu.items[menuIndex].offer_price = 0;
   await menu.save();
 
   const updatedItem = await MenuItem.findOneAndUpdate(
     { item_id: item_id },
-    { on_offer: false, offer_price: 0 },
-  )
+    { on_offer: false, offer_price: 0 }
+  );
 
-  res.status(200).send(updatedItem)
-})
+  res.status(200).send(updatedItem);
+});
 
 module.exports = {
   addItem,
@@ -357,5 +360,5 @@ module.exports = {
   updateAvailablity,
   getAllItems,
   createDiscount,
-  deleteDiscount
+  deleteDiscount,
 };
