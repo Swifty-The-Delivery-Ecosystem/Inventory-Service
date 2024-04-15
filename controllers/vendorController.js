@@ -300,6 +300,10 @@ const createDiscount = asyncHandler(async (req, res) => {
 
   const menu = await Menu.findOne({ vendor_id: vendor_id });
 
+  const vendor_id_object = new mongoose.Types.ObjectId(vendor_id);
+  const vendor = await Vendor.findOne({ _id: vendor_id });
+  console.log(vendor);
+
   if (!menu) {
     res.status(404).send("menu not found");
   }
@@ -318,9 +322,17 @@ const createDiscount = asyncHandler(async (req, res) => {
     { item_id: item_id },
     { on_offer: true, offer_price: offer_price }
   );
+
   const channel = client.channels.get("offers");
-  channel.publish("newOffer", "New offer created");
+  channel.publish(
+    "newOffer",
+    "New offer created on " +
+      menu.items[menuIndex].name +
+      " by " +
+      vendor.restaurantName
+  );
   console.log("Offer created");
+
   res.status(200).send(updatedItem);
 });
 
